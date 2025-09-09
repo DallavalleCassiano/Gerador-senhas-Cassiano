@@ -2,13 +2,13 @@ const numeroSenha = document.querySelector('.parametro-senha__texto');
 let tamanhoSenha = 12;
 numeroSenha.textContent = tamanhoSenha;
 const letrasMaiusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const letrasMinusculas = 'abcdefghijklmonpqrstuvwxyz';
+const letrasMinusculas = 'abcdefghijklmnopqrstuvwxyz';
 const numeros = '0123456789';
-const simbolos = '!@#$%&_-+.?/';
+const simbolos = '@#$%¨&*!?^~+=<>_-';
 const botoes = document.querySelectorAll('.parametro-senha__botao');
 const campoSenha = document.querySelector('#campo-senha');
-const checkbox = document.querySelectorAll('checkbox');
-const forcasenha = document.querySelector('.forca');
+const checkbox = document.querySelectorAll('.checkbox');
+const forcaSenha = document.querySelector('.forca');
 
 botoes[0].onclick = diminuiTamanho;
 botoes[1].onclick = aumentaTamanho;
@@ -21,6 +21,8 @@ function diminuiTamanho() {
     geraSenha();
 }
 
+
+
 function aumentaTamanho() {
     if (tamanhoSenha < 20) {
         tamanhoSenha = tamanhoSenha + 1;
@@ -28,6 +30,7 @@ function aumentaTamanho() {
     numeroSenha.textContent = tamanhoSenha;
     geraSenha();
 }
+
 
 for (i = 0; i < checkbox.length; i++) {
     checkbox[i].onclick = geraSenha;
@@ -53,6 +56,7 @@ function geraSenha() {
     if (checkbox[3].checked) {
         alfabeto = alfabeto + simbolos;
     }
+
     let senha = '';
     for (let i = 0; i < tamanhoSenha; i++) {
         let numeroAleatorio = Math.random() * alfabeto.length;
@@ -60,16 +64,19 @@ function geraSenha() {
         senha = senha + alfabeto[numeroAleatorio];
     }
     campoSenha.value = senha;
+    classificaSenha();
 }
 
 function classificaSenha() {
-    forcasenha.classList.remove('fraca', 'media', 'forte');
-    if (tamanhoSenha > 11) {
-        forcasenha.classList.add('forte');
-    } else if (tamanhoSenha > 5 && tamanhoSenha < 12){
-        forcasenha.classList.add('media');
-    } else if(tamanhoSenha <= 5){
-            forcasenha.classList.add('fraca')
-        } 
-    }
+    let entropia = tamanhoSenha*Math.LOG2E(tamanhoSenha);
     
+    forcaSenha.classList.remove('fraca', 'media', 'forte');
+    if (tamanhoSenha > 11) {
+        forcaSenha.classList.add('forte');
+    } else if (tamanhoSenha > 5 && tamanhoSenha < 12) {
+        forcaSenha.classList.add('media');
+    } else if (tamanhoSenha <= 5) {
+        forcaSenha.classList.add('fraca');
+    }
+
+}
