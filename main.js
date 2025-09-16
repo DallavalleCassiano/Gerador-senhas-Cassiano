@@ -66,8 +66,6 @@ function geraSenha() {
     campoSenha.value = senha;
     classificaSenha(alfabeto.length);
 }
-let entropia = tamanhoSenha * Math.log2(tamanhoSenha)
-
 
 function classificaSenha() {
     let entropia = tamanhoSenha * Math.log2(tamanhoSenha);
